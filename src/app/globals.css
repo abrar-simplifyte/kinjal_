@@ -150,7 +150,7 @@ html.js:not(.ready) .rail button.cv {
    Header & Nav
    ========================================================================== */
 
-header {
+header.site-header {
   position: fixed;
   top: env(safe-area-inset-top, 0px);
   left: 0;
@@ -165,7 +165,7 @@ header {
   box-sizing: border-box;
 }
 
-header>* {
+header.site-header>* {
   pointer-events: auto;
 }
 
@@ -565,6 +565,16 @@ main {
   animation: slide 34s linear infinite;
   color: transparent;
   -webkit-text-stroke: 1px var(--acc);
+}
+
+@media (max-width: 820px) {
+  .tick div.r {
+    /* Outline text is blurry on mobile screens — use solid muted color instead */
+    color: var(--acc2);
+    -webkit-text-stroke: 0;
+    text-stroke: 0;
+    opacity: 0.55;
+  }
 }
 
 .tick i {
@@ -1455,7 +1465,7 @@ dialog .thumb {
     margin-top: 0;
   }
 
-  header {
+  header.site-header {
     padding: 12px 18px;
   }
 
@@ -1597,13 +1607,22 @@ dialog .thumb {
   .chips {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
     gap: 8px;
-    margin: 0 -20px 24px;
-    padding: 4px 20px 10px;
+    /* Bleed edge-to-edge but keep content padded inside */
+    width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 24px;
+    padding: 4px 20px 10px 20px;
+    /* Scroll padding keeps first chip from being clipped */
+    scroll-padding-left: 20px;
+    /* Ensure this is an independent scroll container */
+    position: relative;
+    z-index: 1;
   }
 
   .chips::-webkit-scrollbar {
@@ -1845,11 +1864,15 @@ dialog .thumb {
   }
 
   .chips {
-    margin: 0 -16px 20px;
-    padding: 4px 16px 8px;
+    width: calc(100% + 32px);
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: 20px;
+    padding: 4px 16px 8px 16px;
+    scroll-padding-left: 16px;
   }
 
-  header {
+  header.site-header {
     padding: 10px 14px;
   }
 
@@ -1952,7 +1975,7 @@ dialog .thumb {
     font-size: clamp(28px, 14vw, 56px);
   }
 
-  header {
+  header.site-header {
     padding: 8px 10px;
   }
 
@@ -1986,8 +2009,12 @@ dialog .thumb {
   }
 
   .chips {
-    margin: 0 -12px 18px;
-    padding: 4px 12px 8px;
+    width: calc(100% + 24px);
+    margin-left: -12px;
+    margin-right: -12px;
+    margin-bottom: 18px;
+    padding: 4px 12px 8px 12px;
+    scroll-padding-left: 12px;
   }
 
   .chip {

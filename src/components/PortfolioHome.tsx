@@ -570,7 +570,7 @@ export default function PortfolioHome() {
       <div id="dot" ref={dotRef} />
 
       <div className="ps-shell">
-        <header>
+        <header className="site-header">
           <a
             className="logo"
             href="#home"
